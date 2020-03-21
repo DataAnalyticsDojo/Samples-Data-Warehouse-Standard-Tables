@@ -1,0 +1,35 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.29911.84
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "DataWarehouse", "DataWarehouse\DataWarehouse.sqlproj", "{C25FAFCF-E5FD-4030-9A08-DC963C128381}"
+EndProject
+Project("{00D1A9C2-B5F0-4AF3-8072-F6C62B433612}") = "Staging", "Staging\Staging.sqlproj", "{9EBC4F5E-41E5-4699-9057-3374E2C60EB2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{C25FAFCF-E5FD-4030-9A08-DC963C128381}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C25FAFCF-E5FD-4030-9A08-DC963C128381}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C25FAFCF-E5FD-4030-9A08-DC963C128381}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{C25FAFCF-E5FD-4030-9A08-DC963C128381}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C25FAFCF-E5FD-4030-9A08-DC963C128381}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C25FAFCF-E5FD-4030-9A08-DC963C128381}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{9EBC4F5E-41E5-4699-9057-3374E2C60EB2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9EBC4F5E-41E5-4699-9057-3374E2C60EB2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9EBC4F5E-41E5-4699-9057-3374E2C60EB2}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{9EBC4F5E-41E5-4699-9057-3374E2C60EB2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9EBC4F5E-41E5-4699-9057-3374E2C60EB2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9EBC4F5E-41E5-4699-9057-3374E2C60EB2}.Release|Any CPU.Deploy.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0E75CEA5-EED3-45A3-BA22-9E8A4B804013}
+	EndGlobalSection
+EndGlobal
