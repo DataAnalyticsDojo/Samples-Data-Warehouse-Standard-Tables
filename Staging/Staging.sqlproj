@@ -58,4 +58,7 @@
     <Folder Include="Properties" />
     <Folder Include="SchemaCompares" />
   </ItemGroup>
+  <ItemGroup>
+    <None Include="SchemaCompares\DatabaseToProjectCompare.scmp" />
+  </ItemGroup>
 </Project>
