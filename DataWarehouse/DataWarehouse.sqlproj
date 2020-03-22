@@ -75,4 +75,7 @@
     <Build Include="dbo\Tables\DimTime.sql" />
     <Build Include="dbo\Stored Procedures\usp_LoadDimTime.sql" />
   </ItemGroup>
+  <ItemGroup>
+    <PostDeploy Include="PostDeploymentScript.sql" />
+  </ItemGroup>
 </Project>
