@@ -2,11 +2,10 @@
 CREATE PROCEDURE [dbo].[usp_LoadDimDate]
 	@BeginDate			DATE,
 	@EndDate			DATE,
-	@FiscalMonthStart	TINYINT = 1
+	@FiscalMonthStart	SMALLINT = 1,
+	@UnknownRecordDate  DATE = '12/31/1899'
 AS
 BEGIN
-	--https://www.mssqltips.com/sqlservertip/4054/creating-a-date-dimension-or-calendar-table-in-sql-server/
-
 	--
 	--Stored proc useed to populate the date dimension table
 	--All the dates between begin and end date will be loaded into DimDate
@@ -18,6 +17,7 @@ BEGIN
 
 	--
 	--Parameter validation and error handling
+	--
 	IF @BeginDate IS NULL
 		RAISERROR ('BeginDate parameter must be passed into [usp_LoadDimDate]', 16, 1) WITH NOWAIT;
 	IF @EndDate IS NULL
@@ -30,7 +30,7 @@ BEGIN
 
 	WHILE (@BeginDate <= @EndDate)
 	BEGIN
-		IF NOT EXISTS (SELECT * FROM [dbo].[DimDate] WHERE [Date] = @BeginDate) 
+		IF NOT EXISTS (SELECT 1 FROM [dbo].[DimDate] WHERE [Date] = @BeginDate) 
 		BEGIN
 			--
 			--Set calculated fields for calendar and fiscal year info
@@ -44,10 +44,10 @@ BEGIN
 					@LastDateOfWeek				DATE,
 					@FirstDateOfCalendarQuarter	DATE,
 					@LastDateOfCalendarQuarter	DATE,
-					@CalendarQuarterNumber      TINYINT,
-					@CalendarMonthNumber		TINYINT,
-					@FiscalMonthNumber			TINYINT,
-					@FiscalQuarterNumber		TINYINT,
+					@CalendarQuarterNumber      SMALLINT,
+					@CalendarMonthNumber		SMALLINT,
+					@FiscalMonthNumber			SMALLINT,
+					@FiscalQuarterNumber		SMALLINT,
 					@FirstDateOfFiscalQuarter	DATE,
 					@LastDateOfFiscalQuarter	DATE;			
 
@@ -156,6 +156,8 @@ BEGIN
 				--Week Info
 				[FirstDateOfWeek],
 				[LastDateOfWeek],
+				[NumDaysInWeek],
+				[NumBusinessDaysInWeek],
 				[WeekNameLong],
 				[WeekNameShort],
 				--Calendar Quarter Info
@@ -192,6 +194,7 @@ BEGIN
 				[DayFullNameShort],
 				--Flags
 				[IsFutureDate],
+				[IsUnknownDate],
 				[IsWeekend],
 				[IsHoliday],
 				[HolidayName],
@@ -257,6 +260,8 @@ BEGIN
 				--Week Info
 				@FirstDateOfWeek,											--[FirstDateOfWeek]
 				@LastDateOfWeek,											--[LastDateOfWeek],
+				7,															--[NumDaysInWeek]
+				0,															--[NumBusinessDaysInWeek]
 				DATENAME(WEEKDAY, @FirstDateOfWeek) + N', ' + DATENAME(MONTH, @FirstDateOfWeek) + N' ' + DATENAME(DAY, @FirstDateOfWeek) + N' ' + DATENAME(YEAR, @FirstDateOfWeek),							--[WeekNameLong],
 				LEFT(DATENAME(WEEKDAY, @FirstDateOfWeek), 3) + N', ' + LEFT(DATENAME(MONTH, @FirstDateOfWeek), 3) + N' ' + DATENAME(DAY, @FirstDateOfWeek) + N' ' + DATENAME(YEAR, @FirstDateOfWeek),		--[WeekNameShort]
 				--Calendar Quarter Info
@@ -293,6 +298,7 @@ BEGIN
 				LEFT(DATENAME(WEEKDAY, @BeginDate), 3) + N', ' + LEFT(DATENAME(MONTH, @BeginDate), 3) + N' ' + DATENAME(DAY, @BeginDate) + N' ' + DATENAME(YEAR, @BeginDate),		--[DayFullNameShort]
 				--Flags
 				0,															--[IsFutureDate]
+				0,															--[IsUnknownDate]
 				CONVERT(BIT, CASE WHEN DATEPART(WEEKDAY, @BeginDate) IN (1,7) THEN 1 ELSE 0 END),	--[IsWeekend]
 				0,															--[IsHoliday]
 				0,															--[HolidayName]
@@ -314,14 +320,222 @@ BEGIN
 		--
 		--Add 1 day to BeginDate
 		--
-		SET @BeginDate = DATEADD(dd,1, @BeginDate)
+		SET @BeginDate = DATEADD(dd, 1, @BeginDate)
 	END;
+
+	--
+	--Insert a record for our Unknown Date
+	--
+	IF @UnknownRecordDate IS NOT NULL AND NOT EXISTS (SELECT 1 FROM [dbo].[DimDate] WHERE [Date] = @UnknownRecordDate) 
+	BEGIN
+			INSERT INTO [dbo].[DimDate] (
+				[DateKey],
+				[Date],
+				--Components by Calendar Year	
+				[CalendarYearNumber],
+				[CalendarWeekNumber],
+				[CalendarISOWeekNumber],
+				[CalendarQuarterNumber],
+				[CalendarMonthNumber],
+				[CalendarDayOfYear],
+				--Components by Fiscal Year	
+				[FiscalYearNumber],
+				[FiscalWeekNumber],
+				[FiscalQuarterNumber],
+				[FiscalMonthNumber],
+				[FiscalDayOfYear],
+				--Calendar Offsets
+				[CalendarYearOffsetFromToday],
+				[CalendarQuarterOffsetFromToday],
+				[CalendarMonthOffsetFromToday],
+				[CalendarWeekOffsetFromToday],
+				[CalendarDayOffsetFromToday],
+				--Fiscal Offsets
+				[FiscalYearOffsetFromToday],
+				[FiscalQuarterOffsetFromToday],
+				[FiscalMonthOffsetFromToday],
+				[FiscalWeekOffsetFromToday],
+				[FiscalDayOffsetFromToday],
+				--Calendar Year Info
+				[FirstDateOfCalendarYear],
+				[LastDateOfCalendarYear],
+				[NumDaysInCalendarYear],
+				[NumBusinessDaysInCalendarYear],
+				[CalendarYearNameLong],
+				[CalendarYearNameShort],
+				--Fiscal Year Info
+				[FirstDateOfFiscalYear],
+				[LastDateOfFiscalYear],
+				[NumDaysInFiscalYear],
+				[NumBusinessDaysInFiscalYear],
+				[FiscalYearNameLong],
+				[FiscalYearNameShort],
+				--Week Info
+				[FirstDateOfWeek],
+				[LastDateOfWeek],
+				[NumDaysInWeek],
+				[NumBusinessDaysInWeek],
+				[WeekNameLong],
+				[WeekNameShort],
+				--Calendar Quarter Info
+				[FirstDateOfCalendarQuarter],
+				[LastDateOfCalendarQuarter],
+				[NumDaysInCalendarQuarter],
+				[NumBusinessDaysInCalendarQuarter],
+				[CalendarQuarterNameLong],
+				[CalendarQuarterNameShort],
+				[CalendarQuarterAndYearNameLong],
+				[CalendarQuarterAndYearNameShort],
+				--Fiscal Quarter Info
+				[FirstDateOfFiscalQuarter],
+				[LastDateOfFiscalQuarter],
+				[NumDaysInFiscalQuarter],
+				[NumBusinessDaysInFiscalQuarter],
+				[FiscalQuarterNameLong],
+				[FiscalQuarterNameShort],
+				[FiscalQuarterAndYearNameLong],
+				[FiscalQuarterAndYearNameShort],
+				--Month Info
+				[FirstDateOfMonth],
+				[LastDateOfMonth],
+				[NumDaysInMonth],
+				[NumBusinessDaysInMonth],
+				[MonthNameLong],
+				[MonthNameShort],
+				--Day Info
+				[DayOfWeek],
+				[DayOfMonth],
+				[DayNameLong],
+				[DayNameShort], 
+				[DayFullNameLong],
+				[DayFullNameShort],
+				--Flags
+				[IsFutureDate],
+				[IsUnknownDate],
+				[IsWeekend],
+				[IsHoliday],
+				[HolidayName],
+				[IsBusinessDay],
+				[IsFirstDayOfCalendarYear],
+				[IsLastDayOfCalendarYear],
+				[IsFirstDayOfFiscalYear],
+				[IsLastDayOfFiscalYear],
+				[IsCurrentCalendarYear],
+				[IsCurrentFiscalYear],
+				[IsCurrentCalendarQuarter],
+				[IsCurrentFiscalQuarter],
+				[IsCurrentMonth],
+				[IsCurrentWeek],
+				[IsToday]
+			)
+			VALUES (
+				CAST(FORMAT(@UnknownRecordDate,'yyyyMMdd') AS INT),			--[DateKey]
+				@UnknownRecordDate,											--[Date]
+				--Components by Calendar Year	
+				-1,															--[CalendarYearNumber]
+				-1,															--[CalendarWeekNumber]
+				-1,															--[CalendarISOWeekNumber]
+				-1,															--[CalendarQuarterNumber]
+				-1,															--[CalendarMonthNumber]
+				-1,															--[CalendarDayOfYear]
+				--Components by Fiscal Year	
+				-1,															--[FiscalYearNumber]
+				-1,															--[FiscalWeekNumber]
+				-1,															--[FiscalQuarterNumber]
+				-1,															--[FiscalMonthNumber]
+				-1,															--[FiscalDayOfYear]
+				--Calendar Offsets
+			    -99999,														--[CalendarYearOffsetFromToday]
+			    -99999,														--[CalendarQuarterOffsetFromToday]
+			    -99999,														--[CalendarMonthOffsetFromToday]
+			    -99999,														--[CalendarWeekOffsetFromToday]
+			    -99999,														--[CalendarDayOffsetFromToday]
+				--Fiscal Offsets
+				-99999,														--[FiscalYearOffsetFromToday]
+				-99999,														--[FiscalQuarterOffsetFromToday]
+				-99999,														--[FiscalMonthOffsetFromToday]
+				-99999,														--[FiscalWeekOffsetFromToday]
+				-99999,														--[FiscalDayOffsetFromToday]
+				--Calendar Year Info
+				@UnknownRecordDate,											--[FirstDateOfCalendarYear]
+				@UnknownRecordDate,											--[LastDateOfCalendarYear]
+				-1,															--[NumDaysInCalendarYear]
+				-1,															--[NumBusinessDaysInCalendarYear]
+				'Unknown',													--[CalendarYearNameLong]
+				'Unknown',													--[CalendarYearNameShort]
+				--Fiscal Year Info
+				@UnknownRecordDate,											--[FirstDateOfFiscalYear]
+				@UnknownRecordDate,											--[LastDateOfFiscalYear]
+				-1,															--[NumDaysInFiscalYear]
+				-1,															--[NumBusinessDaysInFiscalYear]
+				'Unknown',													--[FiscalYearNameLong]
+				'Unknown',													--[FiscalYearNameShort]
+				--Week Info
+				@UnknownRecordDate,											--[FirstDateOfWeek]
+				@UnknownRecordDate,											--[LastDateOfWeek],
+				-1,															--[NumDaysInWeek]
+				-1,															--[NumBusinessDaysInWeek]
+				'Unknown',													--[WeekNameLong],
+				'Unknown',													--[WeekNameShort]
+				--Calendar Quarter Info
+				@UnknownRecordDate,											--[FirstDateOfCalendarQuarter]
+				@UnknownRecordDate,											--[LastDateOfCalendarQuarter],
+				-1,															--[NumDaysInCalendarQuarter]
+				-1,															--[NumBusinessDaysInCalendarQuarter],
+				'Unknown',													--[CalendarQuarterNameLong]
+				'Unknown',													--[CalendarQuarterNameShort]
+				'Unknown',													--[CalendarQuarterAndYearNameLong]
+				'Unknown',													--[CalendarQuarterAndYearNameShort]
+				--Fiscal Quarter Info
+				@UnknownRecordDate,											--[FirstDateOfFiscalQuarter]
+				@UnknownRecordDate,											--[LastDateOfFiscalQuarter]
+				-1,															--[NumDaysInFiscalQuarter]
+				-1,															--[NumBusinessDaysInFiscalQuarter]
+				'Unknown',													--[FiscalQuarterNameLong]
+				'Unknown',													--[FiscalQuarterNameShort]
+				'Unknown',													--[FiscalQuarterAndYearNameLong]
+				'Unknown',													--[FiscalQuarterAndYearNameShort]
+				--Month Info
+				@UnknownRecordDate,											--[FirstDateOfMonth]
+				@UnknownRecordDate,											--[LastDateOfMonth]
+				-1,															--[NumDaysInMonth]
+				-1,															--[NumBusinessDaysInMonth]
+				'Unknown',													--[MonthNameLong]
+				'Unknown',													--[MonthNameShort]
+				--Day Info
+				-1,															--[DayOfWeek]
+				-1,															--[DayOfMonth]
+				'Unknown',													--[DayNameLong]
+				'Unk',														--[DayNameShort]
+				'Unknown',													--[DayFullNameLong],
+				'Unknown',													--[DayFullNameShort]
+				--Flags
+				0,															--[IsFutureDate]
+				1,															--[IsUnknownDate]
+				0,															--[IsWeekend]
+				0,															--[IsHoliday]
+				0,															--[HolidayName]
+				0,															--[IsBusinessDay]
+				0,															--[IsFirstDayOfCalendarYear]
+				0,															--[IsLastDayOfCalendarYear]
+				0,															--[IsFirstDayOfFiscalYear]
+				0,															--[IsLastDayOfFiscalYear]
+				0,															--[IsCurrentCalendarYear]
+				0,															--[IsCurrentFiscalYear]
+				0,															--[IsCurrentCalendarQuarter]
+				0,															--[IsCurrentFiscalQuarter]
+				0,															--[IsCurrentMonth]
+				0,															--[IsCurrentWeek]
+				0															--[IsToday]
+			);
+	END;
+
 
 	--
 	--Mass updates on these columns since they change every day
 	--
 	DECLARE @CurrentFiscalYear SMALLINT,
-			@CurrentFiscalQuarter TINYINT;
+			@CurrentFiscalQuarter SMALLINT;
 	SELECT @CurrentFiscalYear = FiscalYearNumber,
 	       @CurrentFiscalQuarter = FiscalQuarterNumber
 	FROM DimDate WHERE [Date] = CAST(GETDATE() AS DATE);
@@ -347,7 +561,7 @@ BEGIN
 		[IsHoliday] = ISNULL(bc.[IsHoliday], 0),
 		[HolidayName] = bc.[HolidayName],
 		--When its a weekend or holiday then we dont consider it a business day
-		[IsBusinessDay] = CONVERT(BIT, CASE WHEN [IsWeekend] = 1 OR ISNULL(bc.[IsHoliday], 0) = 1 THEN 0 ELSE 1 END),
+		[IsBusinessDay] = CONVERT(BIT, CASE WHEN [IsWeekend] = 1 OR ISNULL(bc.[IsBusinessDay], 1) = 0 THEN 0 ELSE 1 END),
 		[IsCurrentCalendarYear] = CONVERT(BIT, CASE WHEN GETDATE() BETWEEN [DimDate].[FirstDateOfCalendarYear] AND [DimDate].[LastDateOfCalendarYear] THEN 1 ELSE 0 END),
 		[IsCurrentFiscalYear] = CONVERT(BIT, CASE WHEN GETDATE() BETWEEN [DimDate].[FirstDateOfFiscalYear] AND [DimDate].[LastDateOfFiscalYear] THEN 1 ELSE 0 END),
 		[IsCurrentCalendarQuarter] = CONVERT(BIT, CASE WHEN GETDATE() BETWEEN [DimDate].[FirstDateOfCalendarQuarter] AND [DimDate].[LastDateOfCalendarQuarter] THEN 1 ELSE 0 END),
@@ -356,7 +570,9 @@ BEGIN
 		[IsCurrentWeek] = CONVERT(BIT, CASE WHEN GETDATE() BETWEEN [DimDate].[FirstDateOfWeek] AND [DimDate].[LastDateOfWeek] THEN 1 ELSE 0 END),
 		[IsToday] = CONVERT(BIT, CASE WHEN CAST(GETDATE() AS DATE) = [DimDate].[Date] THEN 1 ELSE 0 END)
 	FROM [dbo].[DimDate]
-	LEFT OUTER JOIN [Stage].[BusinessCalendar] bc ON (DimDate.[Date] = bc.[Date]);
+	LEFT OUTER JOIN [Stage].[BusinessCalendar] bc ON (DimDate.[Date] = bc.[Date])
+	--Dont change the unknown date record
+	WHERE DimDate.[IsUnknownDate] = 0;
 
 
 	--
@@ -366,8 +582,11 @@ BEGIN
 	SET
 		[NumBusinessDaysInCalendarYear] = (SELECT COUNT(*) FROM [dbo].[DimDate] d WHERE d.CalendarYearNumber = DimDate.CalendarYearNumber AND d.IsBusinessDay = 1),
 		[NumBusinessDaysInFiscalYear] = (SELECT COUNT(*) FROM [dbo].[DimDate] d WHERE d.FiscalYearNumber = DimDate.FiscalYearNumber AND d.IsBusinessDay = 1),
+		[NumBusinessDaysInWeek] = (SELECT COUNT(*) FROM [dbo].[DimDate] d WHERE d.CalendarYearNumber = DimDate.CalendarYearNumber AND d.CalendarWeekNumber = DimDate.CalendarWeekNumber AND d.IsBusinessDay = 1),
 		[NumBusinessDaysInCalendarQuarter] = (SELECT COUNT(*) FROM [dbo].[DimDate] d WHERE d.CalendarYearNumber = DimDate.CalendarYearNumber AND d.CalendarQuarterNumber = DimDate.CalendarQuarterNumber AND d.IsBusinessDay = 1),
 		[NumBusinessDaysInFiscalQuarter] = (SELECT COUNT(*) FROM [dbo].[DimDate] d WHERE d.FiscalYearNumber = DimDate.FiscalYearNumber AND d.FiscalQuarterNumber = DimDate.FiscalQuarterNumber AND d.IsBusinessDay = 1),
-		[NumBusinessDaysInMonth] = (SELECT COUNT(*) FROM [dbo].[DimDate] d WHERE d.CalendarYearNumber = DimDate.CalendarYearNumber AND d.CalendarMonthNumber = DimDate.CalendarMonthNumber AND d.IsBusinessDay = 1);
+		[NumBusinessDaysInMonth] = (SELECT COUNT(*) FROM [dbo].[DimDate] d WHERE d.CalendarYearNumber = DimDate.CalendarYearNumber AND d.CalendarMonthNumber = DimDate.CalendarMonthNumber AND d.IsBusinessDay = 1)
+	--Dont change the unknown date record
+	WHERE [IsUnknownDate] = 0;	
 
 END;

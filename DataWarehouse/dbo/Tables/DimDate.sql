@@ -2,15 +2,15 @@
     [DateKey]                          INT          NOT NULL,
     [Date]                             DATE         NOT NULL,
     [CalendarYearNumber]               SMALLINT     NOT NULL,
-    [CalendarWeekNumber]               TINYINT      NOT NULL,
-    [CalendarISOWeekNumber]            TINYINT      NOT NULL,
-    [CalendarQuarterNumber]            TINYINT      NOT NULL,
-    [CalendarMonthNumber]              TINYINT      NOT NULL,
+    [CalendarWeekNumber]               SMALLINT     NOT NULL,
+    [CalendarISOWeekNumber]            SMALLINT     NOT NULL,
+    [CalendarQuarterNumber]            SMALLINT     NOT NULL,
+    [CalendarMonthNumber]              SMALLINT     NOT NULL,
     [CalendarDayOfYear]                SMALLINT     NOT NULL,
     [FiscalYearNumber]                 SMALLINT     NOT NULL,
-    [FiscalWeekNumber]                 TINYINT      NOT NULL,
-    [FiscalQuarterNumber]              TINYINT      NOT NULL,
-    [FiscalMonthNumber]                TINYINT      NOT NULL,
+    [FiscalWeekNumber]                 SMALLINT     NOT NULL,
+    [FiscalQuarterNumber]              SMALLINT     NOT NULL,
+    [FiscalMonthNumber]                SMALLINT     NOT NULL,
     [FiscalDayOfYear]                  SMALLINT     NOT NULL,
     [CalendarYearOffsetFromToday]      INT          NOT NULL,
     [CalendarQuarterOffsetFromToday]   INT          NOT NULL,
@@ -36,6 +36,8 @@
     [FiscalYearNameShort]              VARCHAR (10) NOT NULL,
     [FirstDateOfWeek]                  DATE         NOT NULL,
     [LastDateOfWeek]                   DATE         NOT NULL,
+    [NumDaysInWeek]                    SMALLINT     NOT NULL,
+    [NumBusinessDaysInWeek]            SMALLINT     NOT NULL,
     [WeekNameLong]                     VARCHAR (30) NOT NULL,
     [WeekNameShort]                    VARCHAR (30) NOT NULL,
     [FirstDateOfCalendarQuarter]       DATE         NOT NULL,
@@ -60,13 +62,14 @@
     [NumBusinessDaysInMonth]           SMALLINT     NOT NULL,
     [MonthNameLong]                    VARCHAR (10) NOT NULL,
     [MonthNameShort]                   VARCHAR (10) NOT NULL,
-    [DayOfWeek]                        TINYINT      NOT NULL,
-    [DayOfMonth]                       TINYINT      NOT NULL,
+    [DayOfWeek]                        SMALLINT     NOT NULL,
+    [DayOfMonth]                       SMALLINT     NOT NULL,
     [DayNameLong]                      VARCHAR (9)  NOT NULL,
     [DayNameShort]                     VARCHAR (3)  NOT NULL,
     [DayFullNameLong]                  VARCHAR (30) NOT NULL,
     [DayFullNameShort]                 VARCHAR (30) NOT NULL,
     [IsFutureDate]                     BIT          NOT NULL,
+    [IsUnknownDate]                    BIT          NOT NULL,
     [IsWeekend]                        BIT          NOT NULL,
     [IsHoliday]                        BIT          NOT NULL,
     [HolidayName]                      VARCHAR (30) NULL,
@@ -84,6 +87,8 @@
     [IsToday]                          BIT          NOT NULL,
     CONSTRAINT [PK_DimDate] PRIMARY KEY CLUSTERED ([DateKey] ASC)
 );
+
+
 
 
 GO
