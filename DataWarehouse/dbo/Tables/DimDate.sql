@@ -72,7 +72,7 @@
     [IsUnknownDate]                    BIT          NOT NULL,
     [IsWeekend]                        BIT          NOT NULL,
     [IsHoliday]                        BIT          NOT NULL,
-    [HolidayName]                      VARCHAR (30) NULL,
+    [HolidayName]                      VARCHAR (50) NULL,
     [IsBusinessDay]                    BIT          NOT NULL,
     [IsFirstDayOfCalendarYear]         BIT          NOT NULL,
     [IsLastDayOfCalendarYear]          BIT          NOT NULL,
