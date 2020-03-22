@@ -83,4 +83,4 @@ stages:
               targetType: 'inline'
               script: | 
                 Write-Host "Auto Generated SQL Update Script:"
-                Get-Content d:\a\1\s\GeneratedOutputFiles\$(datawarehouse_databasename)_Dev_Script.sql | foreach {Write-Output $_}
+                Get-Content d:\a\1\s\GeneratedOutputFiles\$(datawarehouse_databasename)_Script.sql | foreach {Write-Output $_}
