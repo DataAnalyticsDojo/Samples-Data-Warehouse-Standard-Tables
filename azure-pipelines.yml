@@ -13,7 +13,11 @@ schedules:
     - release
   always: false
 
-
+######################################
+#
+# Build the solution
+#
+######################################
 stages:
 - stage: 'Build'
   displayName: 'Build the Solution'
@@ -44,14 +48,21 @@ stages:
         artifactName: dropDacpac
       condition: succeededOrFailed()
 
-- stage: ScriptDBChangesAgainstDevDB
-  displayName: 'Script database schema changes against the dev SQL server'
+######################################
+#
+# Script out the database changes that would be applied to dev into a SQL script so they
+# can be reviewed
+#
+######################################
+- stage: ScriptDatawarehouseDBChangesAgainstDevDB
+  displayName: 'Script Datawarehouse database schema changes against the dev SQL server'
   dependsOn: Build
   jobs:
-  - deployment: ScriptDBChangesAgainstDevDB
+  - deployment: ScriptDatawarehouseDBChangesAgainstDevDB
     pool:
       vmImage: 'windows-latest'
     variables:
+    # This works against the Dev variable library.
     - group: 'Dev'
     environment: 'DatabaseVerificationScript'
     strategy:
@@ -84,3 +95,42 @@ stages:
               script: | 
                 Write-Host "Auto Generated SQL Update Script:"
                 Get-Content d:\a\1\s\GeneratedOutputFiles\$(datawarehouse_databasename)_Script.sql | foreach {Write-Output $_}
+
+######################################
+#
+# Apply the database changes to the dev SQL database
+#
+######################################
+- stage: ApplyDatawarehouseDBChangesToDevDB
+  displayName: 'Apply Datawarehouse database schema changes to the dev SQL server'
+  dependsOn: ScriptDatawarehouseDBChangesAgainstDevDB
+  jobs:
+  - deployment: ApplyDatawarehouseDBChangesToDevDB
+    pool:
+      vmImage: 'windows-latest'
+    variables:
+    - group: 'Release'
+    environment: 'DatabaseVerificationApply'
+    strategy:
+      runOnce:
+        deploy:
+          steps:
+          - download: current
+            artifact: dropDacpac
+            patterns: '**/*'
+          - task: SqlAzureDacpacDeployment@1
+            displayName: 'Deploy SQL schema'
+            inputs:
+              #Set azureSubscription to the name of the DevOps service connection setup to your Azure Subscription
+              #DevOps doesnt seem to let you parameterize this with a library variable
+              #TODO, change this for your own environment
+              azureSubscription: 'DADojo_Azure_Service_Connection'
+              authenticationType: 'server'
+              serverName: '$(datawarehouse_sqlservername)'
+              databaseName: '$(datawarehouse_databasename)'
+              sqlUsername: '$(datawarehouse_adminlogin)'
+              sqlPassword: '$(datawarehouse_adminPassword)'
+              deployType: 'DacpacTask'
+              deploymentAction: 'Publish'
+              dacpacFile: '$(Pipeline.Workspace)/dropDacpac/Datawarehouse/bin/Release/Datawarehouse.dacpac'
+              ipDetectionMethod: 'AutoDetect'

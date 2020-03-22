@@ -15,11 +15,11 @@
 
 
 GO
-CREATE UNIQUE NONCLUSTERED INDEX [IDX_DimDate_Houw_Minute]
+CREATE UNIQUE NONCLUSTERED INDEX [IDX_DimTime_Hour_Minute]
     ON [dbo].[DimTime]([HourNumber] ASC, [MinuteNumber] ASC);
 
 
 GO
-CREATE UNIQUE NONCLUSTERED INDEX [IDX_DimDate_Time]
+CREATE UNIQUE NONCLUSTERED INDEX [IDX_DimTime_Time]
     ON [dbo].[DimTime]([Time] ASC);
 
