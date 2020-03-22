@@ -109,7 +109,8 @@ stages:
     pool:
       vmImage: 'windows-latest'
     variables:
-    - group: 'Release'
+    # This works against the Dev variable library.
+    - group: 'Dev'
     environment: 'DatabaseVerificationApply'
     strategy:
       runOnce:
