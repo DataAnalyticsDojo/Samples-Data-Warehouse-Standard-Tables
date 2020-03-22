@@ -64,7 +64,8 @@ stages:
           - task: SqlAzureDacpacDeployment@1
             displayName: Generate schema change script
             inputs:
-              #azureSubscription: 'Resource Manager - DADojo'
+              #Set azureSubscription to the name of the DevOps service connection setup to your Azure Subscription
+              azureSubscription: '$(azure_service_connection_name)'
               authenticationType: 'server'
               serverName: '$(datawarehouse_sqlservername).database.windows.net'
               databaseName: '$(datawarehouse_databasename)'
