@@ -66,9 +66,10 @@ stages:
             inputs:
               #Set azureSubscription to the name of the DevOps service connection setup to your Azure Subscription
               #DevOps doesnt seem to let you parameterize this with a library variable
+              #TODO, change this for your own environment
               azureSubscription: 'DADojo_Azure_Service_Connection'
               authenticationType: 'server'
-              serverName: '$(datawarehouse_sqlservername).database.windows.net'
+              serverName: '$(datawarehouse_sqlservername)'
               databaseName: '$(datawarehouse_databasename)'
               sqlUsername: '$(datawarehouse_adminlogin)'
               sqlPassword: '$(datawarehouse_adminPassword)'
