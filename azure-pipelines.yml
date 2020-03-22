@@ -22,12 +22,6 @@ stages:
     pool:
       vmImage: 'windows-2019'
     steps:
-    - task: DotNetCoreCLI@2
-      displayName: 'Restore project dependencies'
-      inputs:
-        command: 'restore'
-        projects: '**/*.csproj'
-
     - task: VSBuild@1
       displayName: 'Build the database project'
       inputs:
