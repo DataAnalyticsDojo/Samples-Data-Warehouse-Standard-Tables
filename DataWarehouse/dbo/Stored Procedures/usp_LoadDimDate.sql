@@ -144,6 +144,7 @@ BEGIN
 				[LastDateOfCalendarYear],
 				[NumDaysInCalendarYear],
 				[NumBusinessDaysInCalendarYear],
+				[NumWorkHoursInCalendarYear],
 				[CalendarYearNameLong],
 				[CalendarYearNameShort],
 				--Fiscal Year Info
@@ -151,6 +152,7 @@ BEGIN
 				[LastDateOfFiscalYear],
 				[NumDaysInFiscalYear],
 				[NumBusinessDaysInFiscalYear],
+				[NumWorkHoursInFiscalYear],
 				[FiscalYearNameLong],
 				[FiscalYearNameShort],
 				--Week Info
@@ -158,6 +160,7 @@ BEGIN
 				[LastDateOfWeek],
 				[NumDaysInWeek],
 				[NumBusinessDaysInWeek],
+				[NumWorkHoursInWeek],
 				[WeekNameLong],
 				[WeekNameShort],
 				--Calendar Quarter Info
@@ -165,6 +168,7 @@ BEGIN
 				[LastDateOfCalendarQuarter],
 				[NumDaysInCalendarQuarter],
 				[NumBusinessDaysInCalendarQuarter],
+				[NumWorkHoursInCalendarQuarter],
 				[CalendarQuarterNameLong],
 				[CalendarQuarterNameShort],
 				[CalendarQuarterAndYearNameLong],
@@ -174,6 +178,7 @@ BEGIN
 				[LastDateOfFiscalQuarter],
 				[NumDaysInFiscalQuarter],
 				[NumBusinessDaysInFiscalQuarter],
+				[NumWorkHoursInFiscalQuarter],
 				[FiscalQuarterNameLong],
 				[FiscalQuarterNameShort],
 				[FiscalQuarterAndYearNameLong],
@@ -183,11 +188,13 @@ BEGIN
 				[LastDateOfMonth],
 				[NumDaysInMonth],
 				[NumBusinessDaysInMonth],
+				[NumWorkHoursInMonth],
 				[MonthNameLong],
 				[MonthNameShort],
 				--Day Info
 				[DayOfWeek],
 				[DayOfMonth],
+				[NumWorkHoursInDay],
 				[DayNameLong],
 				[DayNameShort], 
 				[DayFullNameLong],
@@ -248,6 +255,7 @@ BEGIN
 				@LastDateOfCalendarYear,									--[LastDateOfCalendarYear]
 				DATEDIFF(dd, @FirstDateOfCalendarYear, @LastDateOfCalendarYear) + 1, --[NumDaysInCalendarYear]
 				0,															--[NumBusinessDaysInCalendarYear]
+				0,															--[NumWorkHoursInCalendarYear],
 				'CY' + DATENAME(YEAR, @BeginDate),							--[CalendarYearNameLong]
 				'CY' + RIGHT(DATENAME(YEAR, @BeginDate), 2),				--[CalendarYearNameShort]
 				--Fiscal Year Info
@@ -255,6 +263,7 @@ BEGIN
 				@LastDateOfFiscalYear,										--[LastDateOfFiscalYear]
 				DATEDIFF(dd, @FirstDateOfFiscalYear, @LastDateOfFiscalYear) + 1, --[NumDaysInFiscalYear]
 				0,															--[NumBusinessDaysInFiscalYear]
+				0,															--[NumWorkHoursInFiscalYear],
 				'FY' + CAST(@FiscalYearNumber AS VARCHAR(4)),				--[FiscalYearNameLong]
 				'FY' + RIGHT(CAST(@FiscalYearNumber AS VARCHAR(4)), 2),		--[FiscalYearNameShort]
 				--Week Info
@@ -262,6 +271,7 @@ BEGIN
 				@LastDateOfWeek,											--[LastDateOfWeek],
 				7,															--[NumDaysInWeek]
 				0,															--[NumBusinessDaysInWeek]
+				0,															--[NumWorkHoursInWeek],
 				DATENAME(WEEKDAY, @FirstDateOfWeek) + N', ' + DATENAME(MONTH, @FirstDateOfWeek) + N' ' + DATENAME(DAY, @FirstDateOfWeek) + N' ' + DATENAME(YEAR, @FirstDateOfWeek),							--[WeekNameLong],
 				LEFT(DATENAME(WEEKDAY, @FirstDateOfWeek), 3) + N', ' + LEFT(DATENAME(MONTH, @FirstDateOfWeek), 3) + N' ' + DATENAME(DAY, @FirstDateOfWeek) + N' ' + DATENAME(YEAR, @FirstDateOfWeek),		--[WeekNameShort]
 				--Calendar Quarter Info
@@ -269,6 +279,7 @@ BEGIN
 				@LastDateOfCalendarQuarter,									--[LastDateOfCalendarQuarter],
 				DATEDIFF(dd, @FirstDateOfCalendarQuarter, @LastDateOfCalendarQuarter) + 1,		--[NumDaysInCalendarQuarter]
 				0,															--[NumBusinessDaysInCalendarQuarter],
+				0,															--[NumWorkHoursInCalendarQuarter],
 				N'Quarter ' + CAST(@CalendarQuarterNumber AS VARCHAR),		-- [CalendarQuarterNameLong]
 				N'Q' + CAST(@CalendarQuarterNumber AS VARCHAR),				-- [CalendarQuarterNameShort]
 				N'Quarter ' + CAST(@CalendarQuarterNumber AS VARCHAR) + N', ' + CAST(DATEPART(YEAR, @BeginDate) AS VARCHAR), --[CalendarQuarterAndYearNameLong]
@@ -278,6 +289,7 @@ BEGIN
 				@LastDateOfFiscalQuarter,									--[LastDateOfFiscalQuarter]
 				DATEDIFF(dd, @FirstDateOfFiscalQuarter, @LastDateOfFiscalQuarter) + 1,		--[NumDaysInFiscalQuarter]
 				0,															--[NumBusinessDaysInFiscalQuarter]
+				0,															--[NumWorkHoursInFiscalQuarter],
 				N'Quarter ' + CAST(@FiscalQuarterNumber AS VARCHAR),		-- [FiscalQuarterNameLong]
 				N'Q' + CAST(@FiscalQuarterNumber AS VARCHAR),				-- [FiscalQuarterNameShort]
 				N'Quarter ' + CAST(@FiscalQuarterNumber AS VARCHAR) + N', ' + CAST(@FiscalYearNumber AS VARCHAR), --[FiscalQuarterAndYearNameLong]
@@ -287,11 +299,13 @@ BEGIN
 				EOMONTH (@BeginDate),										--[LastDateOfMonth]
 				DAY(EOMONTH(GETDATE())),									--[NumDaysInMonth]
 				0,															--[NumBusinessDaysInMonth]
+				0,															--[NumWorkHoursInMonth]
 				DATENAME(MONTH, @BeginDate),								--[MonthNameLong]
 				SUBSTRING(DATENAME(MONTH, @BeginDate), 1, 3),				--[MonthNameShort]
 				--Day Info
 				DATEPART(WEEKDAY, @BeginDate),								--[DayOfWeek]
 				DATEPART(DAY,     @BeginDate),								--[DayOfMonth]
+				0,															--[NumWorkHoursInDay]
 				DATENAME(WEEKDAY, @BeginDate),								--[DayNameLong]
 				SUBSTRING(DATENAME(WEEKDAY, @BeginDate), 1, 3),				--[DayNameShort]
 				DATENAME(WEEKDAY, @BeginDate) + N', ' + DATENAME(MONTH, @BeginDate) + N' ' + DATENAME(DAY, @BeginDate) + N' ' + DATENAME(YEAR, @BeginDate),							--[DayFullNameLong],
@@ -361,6 +375,7 @@ BEGIN
 				[LastDateOfCalendarYear],
 				[NumDaysInCalendarYear],
 				[NumBusinessDaysInCalendarYear],
+				[NumWorkHoursInCalendarYear],
 				[CalendarYearNameLong],
 				[CalendarYearNameShort],
 				--Fiscal Year Info
@@ -368,6 +383,7 @@ BEGIN
 				[LastDateOfFiscalYear],
 				[NumDaysInFiscalYear],
 				[NumBusinessDaysInFiscalYear],
+				[NumWorkHoursInFiscalYear],
 				[FiscalYearNameLong],
 				[FiscalYearNameShort],
 				--Week Info
@@ -375,6 +391,7 @@ BEGIN
 				[LastDateOfWeek],
 				[NumDaysInWeek],
 				[NumBusinessDaysInWeek],
+				[NumWorkHoursInWeek],
 				[WeekNameLong],
 				[WeekNameShort],
 				--Calendar Quarter Info
@@ -382,6 +399,7 @@ BEGIN
 				[LastDateOfCalendarQuarter],
 				[NumDaysInCalendarQuarter],
 				[NumBusinessDaysInCalendarQuarter],
+				[NumWorkHoursInCalendarQuarter],
 				[CalendarQuarterNameLong],
 				[CalendarQuarterNameShort],
 				[CalendarQuarterAndYearNameLong],
@@ -391,6 +409,7 @@ BEGIN
 				[LastDateOfFiscalQuarter],
 				[NumDaysInFiscalQuarter],
 				[NumBusinessDaysInFiscalQuarter],
+				[NumWorkHoursInFiscalQuarter],
 				[FiscalQuarterNameLong],
 				[FiscalQuarterNameShort],
 				[FiscalQuarterAndYearNameLong],
@@ -400,11 +419,13 @@ BEGIN
 				[LastDateOfMonth],
 				[NumDaysInMonth],
 				[NumBusinessDaysInMonth],
+				[NumWorkHoursInMonth],
 				[MonthNameLong],
 				[MonthNameShort],
 				--Day Info
 				[DayOfWeek],
 				[DayOfMonth],
+				[NumWorkHoursInDay],
 				[DayNameLong],
 				[DayNameShort], 
 				[DayFullNameLong],
@@ -461,6 +482,7 @@ BEGIN
 				@UnknownRecordDate,											--[LastDateOfCalendarYear]
 				-1,															--[NumDaysInCalendarYear]
 				-1,															--[NumBusinessDaysInCalendarYear]
+				-1,															--[NumWorkHoursInCalendarYear]
 				'Unknown',													--[CalendarYearNameLong]
 				'Unknown',													--[CalendarYearNameShort]
 				--Fiscal Year Info
@@ -468,6 +490,7 @@ BEGIN
 				@UnknownRecordDate,											--[LastDateOfFiscalYear]
 				-1,															--[NumDaysInFiscalYear]
 				-1,															--[NumBusinessDaysInFiscalYear]
+				-1,															--[NumWorkHoursInFiscalYear]
 				'Unknown',													--[FiscalYearNameLong]
 				'Unknown',													--[FiscalYearNameShort]
 				--Week Info
@@ -475,6 +498,7 @@ BEGIN
 				@UnknownRecordDate,											--[LastDateOfWeek],
 				-1,															--[NumDaysInWeek]
 				-1,															--[NumBusinessDaysInWeek]
+				-1,															--[NumWorkHoursInWeek]
 				'Unknown',													--[WeekNameLong],
 				'Unknown',													--[WeekNameShort]
 				--Calendar Quarter Info
@@ -482,6 +506,7 @@ BEGIN
 				@UnknownRecordDate,											--[LastDateOfCalendarQuarter],
 				-1,															--[NumDaysInCalendarQuarter]
 				-1,															--[NumBusinessDaysInCalendarQuarter],
+				-1,															--[NumWorkHoursInCalendarQuarter]
 				'Unknown',													--[CalendarQuarterNameLong]
 				'Unknown',													--[CalendarQuarterNameShort]
 				'Unknown',													--[CalendarQuarterAndYearNameLong]
@@ -491,6 +516,7 @@ BEGIN
 				@UnknownRecordDate,											--[LastDateOfFiscalQuarter]
 				-1,															--[NumDaysInFiscalQuarter]
 				-1,															--[NumBusinessDaysInFiscalQuarter]
+				-1,															--[NumWorkHoursInFiscalQuarter]
 				'Unknown',													--[FiscalQuarterNameLong]
 				'Unknown',													--[FiscalQuarterNameShort]
 				'Unknown',													--[FiscalQuarterAndYearNameLong]
@@ -500,11 +526,13 @@ BEGIN
 				@UnknownRecordDate,											--[LastDateOfMonth]
 				-1,															--[NumDaysInMonth]
 				-1,															--[NumBusinessDaysInMonth]
+				-1,															--[NumWorkHoursInMonth]
 				'Unknown',													--[MonthNameLong]
 				'Unknown',													--[MonthNameShort]
 				--Day Info
 				-1,															--[DayOfWeek]
 				-1,															--[DayOfMonth]
+				-1,															--[NumWorkHoursInDay]
 				'Unknown',													--[DayNameLong]
 				'Unk',														--[DayNameShort]
 				'Unknown',													--[DayFullNameLong],
@@ -574,18 +602,42 @@ BEGIN
 	--Dont change the unknown date record
 	WHERE DimDate.[IsUnknownDate] = 0;
 
+	--
+	--Update the num work hours in a day
+	--
+	UPDATE [dbo].[DimDate]
+	SET
+		--Num Work Hours
+		[DimDate].[NumWorkHoursInDay] = (CASE 
+							  WHEN bc.[NumWorkHoursInDay] IS NOT NULL THEN bc.[NumWorkHoursInDay]
+							  WHEN DimDate.[IsBusinessDay] = 0 THEN 0
+							  ELSE 8
+							  END)
+	FROM [dbo].[DimDate]
+	LEFT OUTER JOIN [Stage].[BusinessCalendar] bc ON (DimDate.[Date] = bc.[Date])
+	--Dont change the unknown date record
+	WHERE DimDate.[IsUnknownDate] = 0;
+
 
 	--
 	--Calculate our business day counts
 	--
 	UPDATE [dbo].[DimDate]
 	SET
+		--Business Days
 		[NumBusinessDaysInCalendarYear] = (SELECT COUNT(*) FROM [dbo].[DimDate] d WHERE d.CalendarYearNumber = DimDate.CalendarYearNumber AND d.IsBusinessDay = 1),
 		[NumBusinessDaysInFiscalYear] = (SELECT COUNT(*) FROM [dbo].[DimDate] d WHERE d.FiscalYearNumber = DimDate.FiscalYearNumber AND d.IsBusinessDay = 1),
 		[NumBusinessDaysInWeek] = (SELECT COUNT(*) FROM [dbo].[DimDate] d WHERE d.CalendarYearNumber = DimDate.CalendarYearNumber AND d.CalendarWeekNumber = DimDate.CalendarWeekNumber AND d.IsBusinessDay = 1),
 		[NumBusinessDaysInCalendarQuarter] = (SELECT COUNT(*) FROM [dbo].[DimDate] d WHERE d.CalendarYearNumber = DimDate.CalendarYearNumber AND d.CalendarQuarterNumber = DimDate.CalendarQuarterNumber AND d.IsBusinessDay = 1),
 		[NumBusinessDaysInFiscalQuarter] = (SELECT COUNT(*) FROM [dbo].[DimDate] d WHERE d.FiscalYearNumber = DimDate.FiscalYearNumber AND d.FiscalQuarterNumber = DimDate.FiscalQuarterNumber AND d.IsBusinessDay = 1),
-		[NumBusinessDaysInMonth] = (SELECT COUNT(*) FROM [dbo].[DimDate] d WHERE d.CalendarYearNumber = DimDate.CalendarYearNumber AND d.CalendarMonthNumber = DimDate.CalendarMonthNumber AND d.IsBusinessDay = 1)
+		[NumBusinessDaysInMonth] = (SELECT COUNT(*) FROM [dbo].[DimDate] d WHERE d.CalendarYearNumber = DimDate.CalendarYearNumber AND d.CalendarMonthNumber = DimDate.CalendarMonthNumber AND d.IsBusinessDay = 1),
+		--Work Hours
+		[NumWorkHoursInCalendarYear] = (SELECT SUM([NumWorkHoursInDay]) FROM [dbo].[DimDate] d WHERE d.CalendarYearNumber = DimDate.CalendarYearNumber),
+		[NumWorkHoursInFiscalYear] = (SELECT SUM([NumWorkHoursInDay]) FROM [dbo].[DimDate] d WHERE d.FiscalYearNumber = DimDate.FiscalYearNumber),
+		[NumWorkHoursInWeek] = (SELECT SUM([NumWorkHoursInDay]) FROM [dbo].[DimDate] d WHERE d.CalendarYearNumber = DimDate.CalendarYearNumber AND d.CalendarWeekNumber = DimDate.CalendarWeekNumber),
+		[NumWorkHoursInCalendarQuarter] = (SELECT SUM([NumWorkHoursInDay]) FROM [dbo].[DimDate] d WHERE d.CalendarYearNumber = DimDate.CalendarYearNumber AND d.CalendarQuarterNumber = DimDate.CalendarQuarterNumber),
+		[NumWorkHoursInFiscalQuarter] = (SELECT SUM([NumWorkHoursInDay]) FROM [dbo].[DimDate] d WHERE d.FiscalYearNumber = DimDate.FiscalYearNumber AND d.FiscalQuarterNumber = DimDate.FiscalQuarterNumber),
+		[NumWorkHoursInMonth] = (SELECT SUM([NumWorkHoursInDay]) FROM [dbo].[DimDate] d WHERE d.CalendarYearNumber = DimDate.CalendarYearNumber AND d.CalendarMonthNumber = DimDate.CalendarMonthNumber)
 	--Dont change the unknown date record
 	WHERE [IsUnknownDate] = 0;	
 
