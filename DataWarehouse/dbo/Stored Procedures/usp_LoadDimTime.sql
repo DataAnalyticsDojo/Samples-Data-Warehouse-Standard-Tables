@@ -1,7 +1,7 @@
 ﻿
 CREATE PROCEDURE [dbo].[usp_LoadDimTime]
-	@BeginTime			DATETIME = '1/1/1900 00:00',
-	@EndTime			DATETIME = '1/1/1900 23:59',
+	@BeginTime					DATETIME = '1/1/1900 00:00',
+	@EndTime					DATETIME = '1/1/1900 23:59',
 	@InsertUnknownTimeRecord	BIT = 1
 AS
 BEGIN
@@ -40,25 +40,25 @@ BEGIN
 			)
 			VALUES (
 				CAST(FORMAT(@BeginTime,'HHmm') AS INT),					--[TimeKey]
-				CAST(@BeginTime AS TIME),						--[Time]
-				CAST(DATEPART(HOUR, @BeginTime) AS TINYINT),				--[HourNumber]
-				'Hour ' + FORMAT(DATEPART(HOUR, @BeginTime), '00'),			--[HourNameLong]
+				CAST(@BeginTime AS TIME),								--[Time]
+				CAST(DATEPART(HOUR, @BeginTime) AS TINYINT),			--[HourNumber]
+				'Hour ' + FORMAT(DATEPART(HOUR, @BeginTime), '00'),		--[HourNameLong]
 				FORMAT(DATEPART(HOUR, @BeginTime), '00'),				--[HourNameShort]
-				CAST(DATEPART(MINUTE, @BeginTime) AS TINYINT),				--[MinuteNumber]
-				'Minute ' + FORMAT(DATEPART(MINUTE, @BeginTime), '00'),			--[MinuteNameLong]
+				CAST(DATEPART(MINUTE, @BeginTime) AS TINYINT),			--[MinuteNumber]
+				'Minute ' + FORMAT(DATEPART(MINUTE, @BeginTime), '00'),	--[MinuteNameLong]
 				FORMAT(DATEPART(MINUTE, @BeginTime), '00'),				--[MinuteNameShort]
 				--
 				FORMAT(CASE ((DATEPART(HOUR, @BeginTime) % 12)) WHEN 0 THEN 12 ELSE ((DATEPART(HOUR, @BeginTime) % 12)) END, '00') + 
 					':' + 
 					 FORMAT(DATEPART(MINUTE, @BeginTime), '00') +
-					':00',								--[TimeNameStandard]
+					':00',												--[TimeNameStandard]
 				--
 				FORMAT(DATEPART(HOUR, @BeginTime), '00') + 
 					 ':' + 
 					 FORMAT(DATEPART(MINUTE, @BeginTime), '00') +
-					 ':00',								--[TimeNameMilitary]
+					 ':00',												--[TimeNameMilitary]
 				--
-				0															--[IsUnknownTime]
+				0														--[IsUnknownTime]
 			);
 		END;
 
