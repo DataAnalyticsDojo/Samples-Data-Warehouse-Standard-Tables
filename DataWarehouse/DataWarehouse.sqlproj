@@ -75,6 +75,8 @@
     <Build Include="Security\Stage.sql" />
     <Build Include="dbo\Tables\DimTime.sql" />
     <Build Include="dbo\Stored Procedures\usp_LoadDimTime.sql" />
+    <Build Include="dbo\Tables\FactExample1.sql" />
+    <Build Include="dbo\Tables\DimExampleType2SCD.sql" />
   </ItemGroup>
   <ItemGroup>
     <PostDeploy Include="PostDeploymentScript.sql" />
