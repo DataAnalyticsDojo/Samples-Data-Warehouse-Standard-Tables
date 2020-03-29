@@ -1,0 +1,517 @@
+{
+  "source": 2,
+  "revision": 8,
+  "description": null,
+  "createdBy": {
+    "displayName": "DataAnalyticsDojo",
+    "url": "https://spsprodcus3.vssps.visualstudio.com/Aee552895-80b1-47aa-bae9-9da55cb1bc9b/_apis/Identities/061efb20-c233-6046-8643-de4d80bbbc49",
+    "_links": { "avatar": { "href": "https://dev.azure.com/DataAnalyticsDojo/_apis/GraphProfile/MemberAvatars/msa.MDYxZWZiMjAtYzIzMy03MDQ2LTg2NDMtZGU0ZDgwYmJiYzQ5" } },
+    "id": "061efb20-c233-6046-8643-de4d80bbbc49",
+    "uniqueName": "DataAnalyticsDojo@outlook.com",
+    "imageUrl": "https://dev.azure.com/DataAnalyticsDojo/_apis/GraphProfile/MemberAvatars/msa.MDYxZWZiMjAtYzIzMy03MDQ2LTg2NDMtZGU0ZDgwYmJiYzQ5",
+    "descriptor": "msa.MDYxZWZiMjAtYzIzMy03MDQ2LTg2NDMtZGU0ZDgwYmJiYzQ5"
+  },
+  "createdOn": "2020-03-29T15:09:30.663Z",
+  "modifiedBy": {
+    "displayName": "DataAnalyticsDojo",
+    "url": "https://spsprodcus3.vssps.visualstudio.com/Aee552895-80b1-47aa-bae9-9da55cb1bc9b/_apis/Identities/061efb20-c233-6046-8643-de4d80bbbc49",
+    "_links": { "avatar": { "href": "https://dev.azure.com/DataAnalyticsDojo/_apis/GraphProfile/MemberAvatars/msa.MDYxZWZiMjAtYzIzMy03MDQ2LTg2NDMtZGU0ZDgwYmJiYzQ5" } },
+    "id": "061efb20-c233-6046-8643-de4d80bbbc49",
+    "uniqueName": "DataAnalyticsDojo@outlook.com",
+    "imageUrl": "https://dev.azure.com/DataAnalyticsDojo/_apis/GraphProfile/MemberAvatars/msa.MDYxZWZiMjAtYzIzMy03MDQ2LTg2NDMtZGU0ZDgwYmJiYzQ5",
+    "descriptor": "msa.MDYxZWZiMjAtYzIzMy03MDQ2LTg2NDMtZGU0ZDgwYmJiYzQ5"
+  },
+  "modifiedOn": "2020-03-29T15:31:52.220Z",
+  "isDeleted": false,
+  "lastRelease": {
+    "id": 5,
+    "name": "Release-5",
+    "artifacts": [],
+    "_links": {},
+    "description": "",
+    "releaseDefinition": {
+      "id": 1,
+      "projectReference": null,
+      "_links": {}
+    },
+    "createdOn": "2020-03-29T15:31:56.710Z",
+    "createdBy": {
+      "displayName": "DataAnalyticsDojo",
+      "url": "https://spsprodcus3.vssps.visualstudio.com/Aee552895-80b1-47aa-bae9-9da55cb1bc9b/_apis/Identities/061efb20-c233-6046-8643-de4d80bbbc49",
+      "_links": { "avatar": { "href": "https://dev.azure.com/DataAnalyticsDojo/_apis/GraphProfile/MemberAvatars/msa.MDYxZWZiMjAtYzIzMy03MDQ2LTg2NDMtZGU0ZDgwYmJiYzQ5" } },
+      "id": "061efb20-c233-6046-8643-de4d80bbbc49",
+      "uniqueName": "DataAnalyticsDojo@outlook.com",
+      "imageUrl": "https://dev.azure.com/DataAnalyticsDojo/_apis/GraphProfile/MemberAvatars/msa.MDYxZWZiMjAtYzIzMy03MDQ2LTg2NDMtZGU0ZDgwYmJiYzQ5",
+      "descriptor": "msa.MDYxZWZiMjAtYzIzMy03MDQ2LTg2NDMtZGU0ZDgwYmJiYzQ5"
+    }
+  },
+  "variables": {},
+  "variableGroups": [ 1 ],
+  "environments": [
+    {
+      "id": 1,
+      "name": "Script DB Changes Against DB",
+      "rank": 1,
+      "owner": {
+        "displayName": "DataAnalyticsDojo",
+        "url": "https://spsprodcus3.vssps.visualstudio.com/Aee552895-80b1-47aa-bae9-9da55cb1bc9b/_apis/Identities/061efb20-c233-6046-8643-de4d80bbbc49",
+        "_links": { "avatar": { "href": "https://dev.azure.com/DataAnalyticsDojo/_apis/GraphProfile/MemberAvatars/msa.MDYxZWZiMjAtYzIzMy03MDQ2LTg2NDMtZGU0ZDgwYmJiYzQ5" } },
+        "id": "061efb20-c233-6046-8643-de4d80bbbc49",
+        "uniqueName": "DataAnalyticsDojo@outlook.com",
+        "imageUrl": "https://dev.azure.com/DataAnalyticsDojo/_apis/GraphProfile/MemberAvatars/msa.MDYxZWZiMjAtYzIzMy03MDQ2LTg2NDMtZGU0ZDgwYmJiYzQ5",
+        "descriptor": "msa.MDYxZWZiMjAtYzIzMy03MDQ2LTg2NDMtZGU0ZDgwYmJiYzQ5"
+      },
+      "variables": {},
+      "variableGroups": [],
+      "preDeployApprovals": {
+        "approvals": [
+          {
+            "rank": 1,
+            "isAutomated": true,
+            "isNotificationOn": false,
+            "id": 1
+          }
+        ],
+        "approvalOptions": {
+          "requiredApproverCount": null,
+          "releaseCreatorCanBeApprover": false,
+          "autoTriggeredAndPreviousEnvironmentApprovedCanBeSkipped": false,
+          "enforceIdentityRevalidation": false,
+          "timeoutInMinutes": 0,
+          "executionOrder": 1
+        }
+      },
+      "deployStep": { "id": 2 },
+      "postDeployApprovals": {
+        "approvals": [
+          {
+            "rank": 1,
+            "isAutomated": true,
+            "isNotificationOn": false,
+            "id": 3
+          }
+        ],
+        "approvalOptions": {
+          "requiredApproverCount": null,
+          "releaseCreatorCanBeApprover": false,
+          "autoTriggeredAndPreviousEnvironmentApprovedCanBeSkipped": false,
+          "enforceIdentityRevalidation": false,
+          "timeoutInMinutes": 0,
+          "executionOrder": 2
+        }
+      },
+      "deployPhases": [
+        {
+          "deploymentInput": {
+            "parallelExecution": { "parallelExecutionType": 0 },
+            "agentSpecification": { "identifier": "vs2017-win2016" },
+            "skipArtifactsDownload": false,
+            "artifactsDownloadInput": { "downloadInputs": [] },
+            "queueId": 27,
+            "demands": [],
+            "enableAccessToken": false,
+            "timeoutInMinutes": 0,
+            "jobCancelTimeoutInMinutes": 1,
+            "condition": "succeeded()",
+            "overrideInputs": {}
+          },
+          "rank": 1,
+          "phaseType": 1,
+          "name": "Agent job",
+          "refName": null,
+          "workflowTasks": [
+            {
+              "environment": {},
+              "taskId": "ce85a08b-a538-4d2b-8589-1d37a9ab970f",
+              "version": "1.*",
+              "name": "Azure SQL DacpacTask",
+              "refName": "",
+              "enabled": true,
+              "alwaysRun": false,
+              "continueOnError": false,
+              "timeoutInMinutes": 0,
+              "definitionType": "task",
+              "overrideInputs": {},
+              "condition": "succeeded()",
+              "inputs": {
+                "ConnectedServiceNameSelector": "ConnectedServiceNameARM",
+                "ConnectedServiceName": "",
+                "ConnectedServiceNameARM": "d7c3b50e-988c-40fa-9bae-e5a0ecb94924",
+                "AuthenticationType": "server",
+                "ServerName": "$(datawarehouse_sqlservername)",
+                "DatabaseName": "$(datawarehouse_databasename)",
+                "SqlUsername": "$(datawarehouse_adminlogin)",
+                "SqlPassword": "$(datawarehouse_adminPassword)",
+                "aadSqlUsername": "",
+                "aadSqlPassword": "",
+                "ConnectionString": "",
+                "TaskNameSelector": "DacpacTask",
+                "DeploymentAction": "Script",
+                "DacpacFile": "$(System.DefaultWorkingDirectory)/_DataAnalyticsDojo.Samples-Data-Warehouse-Standard-Tables (1)/dropDacpac/DataWarehouse/bin/Release/DataWarehouse.dacpac",
+                "BacpacFile": "",
+                "SqlFile": "",
+                "SqlInline": "",
+                "PublishProfile": "",
+                "AdditionalArguments": "",
+                "SqlAdditionalArguments": "",
+                "InlineAdditionalArguments": "",
+                "IpDetectionMethod": "AutoDetect",
+                "StartIpAddress": "",
+                "EndIpAddress": "",
+                "DeleteFirewallRule": "true"
+              }
+            },
+            {
+              "environment": {},
+              "taskId": "e213ff0f-5d5c-4791-802d-52ea3e7be1f1",
+              "version": "2.*",
+              "name": "Show Auto Generated SQL Script",
+              "refName": "",
+              "enabled": true,
+              "alwaysRun": false,
+              "continueOnError": false,
+              "timeoutInMinutes": 0,
+              "definitionType": "task",
+              "overrideInputs": {},
+              "condition": "succeeded()",
+              "inputs": {
+                "targetType": "inline",
+                "filePath": "",
+                "arguments": "",
+                "script": "# Write your PowerShell commands here.\n Write-Host \"Auto Generated SQL Update Script:\"\nGet-Content $(System.DefaultWorkingDirectory)\\GeneratedOutputFiles\\$(datawarehouse_databasename)_Script.sql | foreach {Write-Output $_}\n",
+                "errorActionPreference": "stop",
+                "failOnStderr": "false",
+                "ignoreLASTEXITCODE": "false",
+                "pwsh": "false",
+                "workingDirectory": ""
+              }
+            }
+          ]
+        }
+      ],
+      "environmentOptions": {
+        "emailNotificationType": "OnlyOnFailure",
+        "emailRecipients": "release.environment.owner;release.creator",
+        "skipArtifactsDownload": false,
+        "timeoutInMinutes": 0,
+        "enableAccessToken": false,
+        "publishDeploymentStatus": true,
+        "badgeEnabled": false,
+        "autoLinkWorkItems": false,
+        "pullRequestDeploymentEnabled": false
+      },
+      "demands": [],
+      "conditions": [
+        {
+          "name": "ReleaseStarted",
+          "conditionType": 1,
+          "value": ""
+        }
+      ],
+      "executionPolicy": {
+        "concurrencyCount": 1,
+        "queueDepthCount": 0
+      },
+      "schedules": [],
+      "currentRelease": {
+        "id": 5,
+        "url": "https://vsrm.dev.azure.com/DataAnalyticsDojo/d309ff2b-b563-4b29-9669-42c2b1819a94/_apis/Release/releases/5",
+        "_links": {}
+      },
+      "retentionPolicy": {
+        "daysToKeep": 30,
+        "releasesToKeep": 3,
+        "retainBuild": true
+      },
+      "processParameters": {},
+      "properties": {
+        "BoardsEnvironmentType": {
+          "$type": "System.String",
+          "$value": "unmapped"
+        },
+        "LinkBoardsWorkItems": {
+          "$type": "System.String",
+          "$value": "False"
+        }
+      },
+      "preDeploymentGates": {
+        "id": 0,
+        "gatesOptions": null,
+        "gates": []
+      },
+      "postDeploymentGates": {
+        "id": 0,
+        "gatesOptions": null,
+        "gates": []
+      },
+      "environmentTriggers": [],
+      "badgeUrl": "https://vsrm.dev.azure.com/DataAnalyticsDojo/_apis/public/Release/badge/d309ff2b-b563-4b29-9669-42c2b1819a94/1/1"
+    },
+    {
+      "id": 2,
+      "name": "Deploy DB Changes",
+      "rank": 2,
+      "owner": {
+        "displayName": "DataAnalyticsDojo",
+        "url": "https://spsprodcus3.vssps.visualstudio.com/Aee552895-80b1-47aa-bae9-9da55cb1bc9b/_apis/Identities/061efb20-c233-6046-8643-de4d80bbbc49",
+        "_links": { "avatar": { "href": "https://dev.azure.com/DataAnalyticsDojo/_apis/GraphProfile/MemberAvatars/msa.MDYxZWZiMjAtYzIzMy03MDQ2LTg2NDMtZGU0ZDgwYmJiYzQ5" } },
+        "id": "061efb20-c233-6046-8643-de4d80bbbc49",
+        "uniqueName": "DataAnalyticsDojo@outlook.com",
+        "imageUrl": "https://dev.azure.com/DataAnalyticsDojo/_apis/GraphProfile/MemberAvatars/msa.MDYxZWZiMjAtYzIzMy03MDQ2LTg2NDMtZGU0ZDgwYmJiYzQ5",
+        "descriptor": "msa.MDYxZWZiMjAtYzIzMy03MDQ2LTg2NDMtZGU0ZDgwYmJiYzQ5"
+      },
+      "variables": {},
+      "variableGroups": [],
+      "preDeployApprovals": {
+        "approvals": [
+          {
+            "rank": 1,
+            "isAutomated": false,
+            "isNotificationOn": false,
+            "approver": {
+              "displayName": "DataAnalyticsDojo",
+              "url": "https://spsprodcus3.vssps.visualstudio.com/Aee552895-80b1-47aa-bae9-9da55cb1bc9b/_apis/Identities/061efb20-c233-6046-8643-de4d80bbbc49",
+              "_links": { "avatar": { "href": "https://dev.azure.com/DataAnalyticsDojo/_apis/GraphProfile/MemberAvatars/msa.MDYxZWZiMjAtYzIzMy03MDQ2LTg2NDMtZGU0ZDgwYmJiYzQ5" } },
+              "id": "061efb20-c233-6046-8643-de4d80bbbc49",
+              "uniqueName": "DataAnalyticsDojo@outlook.com",
+              "imageUrl": "https://dev.azure.com/DataAnalyticsDojo/_apis/GraphProfile/MemberAvatars/msa.MDYxZWZiMjAtYzIzMy03MDQ2LTg2NDMtZGU0ZDgwYmJiYzQ5",
+              "descriptor": "msa.MDYxZWZiMjAtYzIzMy03MDQ2LTg2NDMtZGU0ZDgwYmJiYzQ5"
+            },
+            "id": 7
+          }
+        ],
+        "approvalOptions": {
+          "requiredApproverCount": null,
+          "releaseCreatorCanBeApprover": true,
+          "autoTriggeredAndPreviousEnvironmentApprovedCanBeSkipped": false,
+          "enforceIdentityRevalidation": false,
+          "timeoutInMinutes": 0,
+          "executionOrder": 1
+        }
+      },
+      "deployStep": { "id": 5 },
+      "postDeployApprovals": {
+        "approvals": [
+          {
+            "rank": 1,
+            "isAutomated": true,
+            "isNotificationOn": false,
+            "id": 6
+          }
+        ],
+        "approvalOptions": {
+          "requiredApproverCount": null,
+          "releaseCreatorCanBeApprover": false,
+          "autoTriggeredAndPreviousEnvironmentApprovedCanBeSkipped": false,
+          "enforceIdentityRevalidation": false,
+          "timeoutInMinutes": 0,
+          "executionOrder": 2
+        }
+      },
+      "deployPhases": [
+        {
+          "deploymentInput": {
+            "parallelExecution": { "parallelExecutionType": 0 },
+            "agentSpecification": { "identifier": "vs2017-win2016" },
+            "skipArtifactsDownload": false,
+            "artifactsDownloadInput": { "downloadInputs": [] },
+            "queueId": 27,
+            "demands": [],
+            "enableAccessToken": false,
+            "timeoutInMinutes": 0,
+            "jobCancelTimeoutInMinutes": 1,
+            "condition": "succeeded()",
+            "overrideInputs": {}
+          },
+          "rank": 1,
+          "phaseType": 1,
+          "name": "Agent job",
+          "refName": null,
+          "workflowTasks": [
+            {
+              "environment": {},
+              "taskId": "ce85a08b-a538-4d2b-8589-1d37a9ab970f",
+              "version": "1.*",
+              "name": "Azure SQL DacpacTask",
+              "refName": "",
+              "enabled": true,
+              "alwaysRun": false,
+              "continueOnError": false,
+              "timeoutInMinutes": 0,
+              "definitionType": "task",
+              "overrideInputs": {},
+              "condition": "succeeded()",
+              "inputs": {
+                "ConnectedServiceNameSelector": "ConnectedServiceNameARM",
+                "ConnectedServiceName": "",
+                "ConnectedServiceNameARM": "d7c3b50e-988c-40fa-9bae-e5a0ecb94924",
+                "AuthenticationType": "server",
+                "ServerName": "$(datawarehouse_sqlservername)",
+                "DatabaseName": "$(datawarehouse_databasename)",
+                "SqlUsername": "$(datawarehouse_adminlogin)",
+                "SqlPassword": "$(datawarehouse_adminPassword)",
+                "aadSqlUsername": "",
+                "aadSqlPassword": "",
+                "ConnectionString": "",
+                "TaskNameSelector": "DacpacTask",
+                "DeploymentAction": "Publish",
+                "DacpacFile": "$(System.DefaultWorkingDirectory)/_DataAnalyticsDojo.Samples-Data-Warehouse-Standard-Tables (1)/dropDacpac/DataWarehouse/bin/Release/DataWarehouse.dacpac",
+                "BacpacFile": "",
+                "SqlFile": "",
+                "SqlInline": "",
+                "PublishProfile": "",
+                "AdditionalArguments": "",
+                "SqlAdditionalArguments": "",
+                "InlineAdditionalArguments": "",
+                "IpDetectionMethod": "AutoDetect",
+                "StartIpAddress": "",
+                "EndIpAddress": "",
+                "DeleteFirewallRule": "true"
+              }
+            }
+          ]
+        }
+      ],
+      "environmentOptions": {
+        "emailNotificationType": "OnlyOnFailure",
+        "emailRecipients": "release.environment.owner;release.creator",
+        "skipArtifactsDownload": false,
+        "timeoutInMinutes": 0,
+        "enableAccessToken": false,
+        "publishDeploymentStatus": true,
+        "badgeEnabled": false,
+        "autoLinkWorkItems": false,
+        "pullRequestDeploymentEnabled": false
+      },
+      "demands": [],
+      "conditions": [
+        {
+          "name": "Script DB Changes Against DB",
+          "conditionType": 2,
+          "value": "4"
+        }
+      ],
+      "executionPolicy": {
+        "concurrencyCount": 1,
+        "queueDepthCount": 0
+      },
+      "schedules": [],
+      "currentRelease": {
+        "id": 5,
+        "url": "https://vsrm.dev.azure.com/DataAnalyticsDojo/d309ff2b-b563-4b29-9669-42c2b1819a94/_apis/Release/releases/5",
+        "_links": {}
+      },
+      "retentionPolicy": {
+        "daysToKeep": 30,
+        "releasesToKeep": 3,
+        "retainBuild": true
+      },
+      "processParameters": {},
+      "properties": {
+        "BoardsEnvironmentType": {
+          "$type": "System.String",
+          "$value": "unmapped"
+        },
+        "LinkBoardsWorkItems": {
+          "$type": "System.String",
+          "$value": "False"
+        }
+      },
+      "preDeploymentGates": {
+        "id": 0,
+        "gatesOptions": null,
+        "gates": []
+      },
+      "postDeploymentGates": {
+        "id": 0,
+        "gatesOptions": null,
+        "gates": []
+      },
+      "environmentTriggers": [],
+      "badgeUrl": "https://vsrm.dev.azure.com/DataAnalyticsDojo/_apis/public/Release/badge/d309ff2b-b563-4b29-9669-42c2b1819a94/1/2"
+    }
+  ],
+  "artifacts": [
+    {
+      "sourceId": "d309ff2b-b563-4b29-9669-42c2b1819a94:4",
+      "type": "Build",
+      "alias": "_DataAnalyticsDojo.Samples-Data-Warehouse-Standard-Tables (1)",
+      "definitionReference": {
+        "artifactSourceDefinitionUrl": {
+          "id": "https://dev.azure.com/DataAnalyticsDojo/_permalink/_build/index?collectionId=11f4b717-b2e4-44bd-8aef-ce059cd834ea&projectId=d309ff2b-b563-4b29-9669-42c2b1819a94&definitionId=4",
+          "name": ""
+        },
+        "defaultVersionBranch": {
+          "id": "",
+          "name": ""
+        },
+        "defaultVersionSpecific": {
+          "id": "",
+          "name": ""
+        },
+        "defaultVersionTags": {
+          "id": "",
+          "name": ""
+        },
+        "defaultVersionType": {
+          "id": "latestType",
+          "name": "Latest"
+        },
+        "definition": {
+          "id": "4",
+          "name": "DataAnalyticsDojo.Samples-Data-Warehouse-Standard-Tables (1)"
+        },
+        "definitions": {
+          "id": "",
+          "name": ""
+        },
+        "IsMultiDefinitionType": {
+          "id": "False",
+          "name": "False"
+        },
+        "project": {
+          "id": "d309ff2b-b563-4b29-9669-42c2b1819a94",
+          "name": "DevOps Pipelines"
+        },
+        "repository": {
+          "id": "",
+          "name": ""
+        }
+      },
+      "isPrimary": true,
+      "isRetained": false
+    }
+  ],
+  "triggers": [
+    {
+      "artifactAlias": "_DataAnalyticsDojo.Samples-Data-Warehouse-Standard-Tables (1)",
+      "triggerConditions": [],
+      "triggerType": 1
+    }
+  ],
+  "releaseNameFormat": "Release-$(rev:r)",
+  "tags": [],
+  "properties": {
+    "DefinitionCreationSource": {
+      "$type": "System.String",
+      "$value": "ReleaseNew"
+    },
+    "IntegrateBoardsWorkItems": {
+      "$type": "System.String",
+      "$value": "False"
+    },
+    "IntegrateJiraWorkItems": {
+      "$type": "System.String",
+      "$value": "false"
+    }
+  },
+  "id": 1,
+  "name": "Release - DataAnalyticsDojo.Samples-Data-Warehouse-Standard-Tables",
+  "path": "\\",
+  "projectReference": null,
+  "url": "https://vsrm.dev.azure.com/DataAnalyticsDojo/d309ff2b-b563-4b29-9669-42c2b1819a94/_apis/Release/definitions/1",
+  "_links": {
+    "self": { "href": "https://vsrm.dev.azure.com/DataAnalyticsDojo/d309ff2b-b563-4b29-9669-42c2b1819a94/_apis/Release/definitions/1" },
+    "web": { "href": "https://dev.azure.com/DataAnalyticsDojo/d309ff2b-b563-4b29-9669-42c2b1819a94/_release?definitionId=1" }
+  }
+}
