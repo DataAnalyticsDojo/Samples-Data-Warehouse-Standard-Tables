@@ -1,0 +1,43 @@
+trigger:
+- '*'
+
+variables:
+    buildConfiguration: 'Release'
+    releaseBranchName: 'release'
+
+
+######################################
+#
+# Build the solution
+#
+######################################
+stages:
+- stage: 'Build'
+  displayName: 'Build the Solution'
+  jobs: 
+  - job: BuildDacpac
+    pool:
+      #vmImage: 'windows-2019'
+      vmImage: 'windows-latest'
+    steps:
+    - task: VSBuild@1
+      displayName: 'Build the database project'
+      inputs:
+        project: '**/*.sqlproj'
+        configuration: Release
+
+    - task: CopyFiles@2
+      displayName: 'Copy dacpac file to staging directory'
+      inputs:
+        contents: |
+          DataWarehouse/bin/**/*.dacpac
+#          Staging/bin/**/*.dacpac      #If you had a second DB project add it here
+        targetFolder: '$(Build.StagingDirectory)'
+
+    - task: PublishBuildArtifacts@1
+      displayName: 'Publish Artifact'
+      inputs:
+        pathToPublish: '$(Build.ArtifactStagingDirectory)'
+        artifactName: dropDacpac
+      condition: succeededOrFailed()
+
