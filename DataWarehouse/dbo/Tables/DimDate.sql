@@ -70,7 +70,7 @@
     [MonthNameShort]                   VARCHAR (10) NOT NULL,
     [DayOfWeek]                        SMALLINT     NOT NULL,
     [DayOfMonth]                       SMALLINT     NOT NULL,
-    [NumWorkHoursInDay]                SMALLINT     NOT NULL,
+    [NumWorkHoursInDay]                NUMERIC(5,2) NOT NULL,
     [DayNameLong]                      VARCHAR (9)  NOT NULL,
     [DayNameShort]                     VARCHAR (3)  NOT NULL,
     [DayFullNameLong]                  VARCHAR (30) NOT NULL,
