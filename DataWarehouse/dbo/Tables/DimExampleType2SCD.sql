@@ -17,7 +17,7 @@
     [ModifiedDate]            DATETIME        NULL,
     [ModifiedBy]              VARCHAR (100)   NULL,
     [RecordHash]              CHAR (66)       NULL,
-    CONSTRAINT [DimCommitment_PK] PRIMARY KEY CLUSTERED ([ExampleType2SCDKey] ASC)
+    CONSTRAINT [DimExampleType2SCD_PK] PRIMARY KEY CLUSTERED ([ExampleType2SCDKey] ASC)
 );
 
 
