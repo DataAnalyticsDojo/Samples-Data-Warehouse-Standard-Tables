@@ -272,8 +272,8 @@ BEGIN
 				7,															--[NumDaysInWeek]
 				0,															--[NumBusinessDaysInWeek]
 				0,															--[NumWorkHoursInWeek],
-				DATENAME(WEEKDAY, @FirstDateOfWeek) + N', ' + DATENAME(MONTH, @FirstDateOfWeek) + N' ' + DATENAME(DAY, @FirstDateOfWeek) + N' ' + DATENAME(YEAR, @FirstDateOfWeek),							--[WeekNameLong],
-				LEFT(DATENAME(WEEKDAY, @FirstDateOfWeek), 3) + N', ' + LEFT(DATENAME(MONTH, @FirstDateOfWeek), 3) + N' ' + DATENAME(DAY, @FirstDateOfWeek) + N' ' + DATENAME(YEAR, @FirstDateOfWeek),		--[WeekNameShort]
+				DATENAME(WEEKDAY, @FirstDateOfWeek) + N', ' + DATENAME(MONTH, @FirstDateOfWeek) + N' ' + DATENAME(DAY, @FirstDateOfWeek) + N', ' + DATENAME(YEAR, @FirstDateOfWeek),							--[WeekNameLong],
+				LEFT(DATENAME(WEEKDAY, @FirstDateOfWeek), 3) + N', ' + LEFT(DATENAME(MONTH, @FirstDateOfWeek), 3) + N' ' + DATENAME(DAY, @FirstDateOfWeek) + N', ' + DATENAME(YEAR, @FirstDateOfWeek),		--[WeekNameShort]
 				--Calendar Quarter Info
 				@FirstDateOfCalendarQuarter,								--[FirstDateOfCalendarQuarter]
 				@LastDateOfCalendarQuarter,									--[LastDateOfCalendarQuarter],
@@ -297,7 +297,7 @@ BEGIN
 				--Month Info
 				DATEADD(DAY, 1, EOMONTH(@BeginDate, -1)),					--[FirstDateOfMonth]
 				EOMONTH (@BeginDate),										--[LastDateOfMonth]
-				DAY(EOMONTH(GETDATE())),									--[NumDaysInMonth]
+				DAY(EOMONTH(@BeginDate)),									--[NumDaysInMonth]
 				0,															--[NumBusinessDaysInMonth]
 				0,															--[NumWorkHoursInMonth]
 				DATENAME(MONTH, @BeginDate),								--[MonthNameLong]
@@ -308,8 +308,8 @@ BEGIN
 				0,															--[NumWorkHoursInDay]
 				DATENAME(WEEKDAY, @BeginDate),								--[DayNameLong]
 				SUBSTRING(DATENAME(WEEKDAY, @BeginDate), 1, 3),				--[DayNameShort]
-				DATENAME(WEEKDAY, @BeginDate) + N', ' + DATENAME(MONTH, @BeginDate) + N' ' + DATENAME(DAY, @BeginDate) + N' ' + DATENAME(YEAR, @BeginDate),							--[DayFullNameLong],
-				LEFT(DATENAME(WEEKDAY, @BeginDate), 3) + N', ' + LEFT(DATENAME(MONTH, @BeginDate), 3) + N' ' + DATENAME(DAY, @BeginDate) + N' ' + DATENAME(YEAR, @BeginDate),		--[DayFullNameShort]
+				DATENAME(WEEKDAY, @BeginDate) + N', ' + DATENAME(MONTH, @BeginDate) + N' ' + DATENAME(DAY, @BeginDate) + N', ' + DATENAME(YEAR, @BeginDate),							--[DayFullNameLong],
+				LEFT(DATENAME(WEEKDAY, @BeginDate), 3) + N', ' + LEFT(DATENAME(MONTH, @BeginDate), 3) + N' ' + DATENAME(DAY, @BeginDate) + N', ' + DATENAME(YEAR, @BeginDate),		--[DayFullNameShort]
 				--Flags
 				0,															--[IsFutureDate]
 				0,															--[IsUnknownDate]
